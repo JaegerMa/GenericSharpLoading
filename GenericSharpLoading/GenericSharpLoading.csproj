@@ -2,6 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>JaegerMa</Authors>
+    <Company />
+    <Product />
+    <Description>.NET Standard 2.0 compatible library to dynamically load external .NET libraries into the runtime</Description>
+    <Copyright>Copyright (c) 2018 Max Jäger</Copyright>
+    <RepositoryUrl>https://github.com/JaegerMa/GenericSharpLoading</RepositoryUrl>
+    <PackageTags>loading dynamic generic runtime</PackageTags>
+    <PackageProjectUrl>https://github.com/JaegerMa/GenericSharpLoading</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JaegerMa/GenericSharpLoading/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+		<Pack>true</Pack>
+		<PackagePath></PackagePath>
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
