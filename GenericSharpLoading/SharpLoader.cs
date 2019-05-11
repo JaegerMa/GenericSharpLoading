@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static GenericSharpLoading.GenericSharpLoading;
 
-namespace GenericSharpLoader
+namespace GenericSharpLoading
 {
 	public class SharpLoader
 	{
