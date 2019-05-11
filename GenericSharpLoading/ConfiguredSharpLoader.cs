@@ -43,11 +43,11 @@ namespace GenericSharpLoading
 
 		public virtual IEnumerable<object> GetInstances(params object[] constructorArgs)
 		{
-			return GetInstances(constructorArgs, ToTypes(constructorArgs));
+			return this.GetInstances(constructorArgs, ToTypes(constructorArgs));
 		}
 		public virtual IEnumerable<object> GetInstances(object[] constructorArgs, Type[] constructorArgTypes, bool markTypesAsInstantiated = true, bool onlyNewTypes = false)
 		{
-			var types = GetTypes(onlyNewTypes);
+			var types = this.GetTypes(onlyNewTypes);
 
 			Log($"Creating instances for {(onlyNewTypes ? "new " : "")} plugins with type '{this.BaseType?.FullName}'. Types are {(markTypesAsInstantiated ? "" : "not ")} marked as instantiated", LogLevel.DEBUG);
 
@@ -59,11 +59,11 @@ namespace GenericSharpLoading
 		
 		public virtual IEnumerable<object> GetNewInstances(params object[] constructorArgs)
 		{
-			return GetNewInstances(constructorArgs, ToTypes(constructorArgs));
+			return this.GetNewInstances(constructorArgs, ToTypes(constructorArgs));
 		}
 		public virtual IEnumerable<object> GetNewInstances(object[] constructorArgs, Type[] constructorArgTypes, bool markTypesAsInstantiated = true)
 		{
-			return GetInstances(constructorArgs, constructorArgTypes, markTypesAsInstantiated: markTypesAsInstantiated, onlyNewTypes: true);
+			return this.GetInstances(constructorArgs, constructorArgTypes, markTypesAsInstantiated: markTypesAsInstantiated, onlyNewTypes: true);
 		}
 
 		public override IEnumerable<PluginType> GetInstances<PluginType>(params object[] constructorArgs) => this.Parent.GetInstances<PluginType>(constructorArgs);
@@ -79,7 +79,7 @@ namespace GenericSharpLoading
 
 		public virtual IEnumerable<Type> GetTypes(bool onlyNewTypes = false)
 		{
-			var types = GetTypes(this.BaseType);
+			var types = this.GetTypes(this.BaseType);
 
 			if(onlyNewTypes)
 				types = types.Where((type) => !this.InstantiatedTypes.Contains(type));
@@ -89,7 +89,7 @@ namespace GenericSharpLoading
 		}
 		public virtual IEnumerable<Type> GetNewTypes()
 		{
-			return GetTypes(onlyNewTypes: true);
+			return this.GetTypes(onlyNewTypes: true);
 		}
 
 		public virtual void ClearInstantiatedTypes()

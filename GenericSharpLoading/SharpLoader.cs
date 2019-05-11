@@ -24,9 +24,9 @@ namespace GenericSharpLoading
 			Log($"Loading assemblies from directory {directory}", LogLevel.DEBUG);
 
 			foreach(string file in Directory.GetFiles(directory, "*.dll", SearchOption.AllDirectories))
-				LoadAssembly(file);
+				this.LoadAssembly(file);
 			foreach(string file in Directory.GetFiles(directory, "*.exe", SearchOption.AllDirectories))
-				LoadAssembly(file);
+				this.LoadAssembly(file);
 		}
 		public virtual void LoadAssembly(Assembly assembly)
 		{
@@ -58,24 +58,24 @@ namespace GenericSharpLoading
 
 		public virtual IEnumerable<PluginType> GetInstances<PluginType>(params object[] constructorArgs)
 		{
-			return GetInstances<PluginType>(constructorArgs, ToTypes(constructorArgs));
+			return this.GetInstances<PluginType>(constructorArgs, SharpLoader.ToTypes(constructorArgs));
 		}
 		public virtual IEnumerable<PluginType> GetInstances<PluginType>(object[] constructorArgs, Type[] constructorArgTypes)
 		{
 			var baseType = typeof(PluginType);
 
-			return GetInstances(baseType, constructorArgs, constructorArgTypes)
+			return this.GetInstances(baseType, constructorArgs, constructorArgTypes)
 					.Cast<PluginType>();
 		}
 		public virtual IEnumerable<object> GetInstances(Type type, params object[] constructorArgs)
 		{
-			return GetInstances(type, constructorArgs, ToTypes(constructorArgs));
+			return this.GetInstances(type, constructorArgs, SharpLoader.ToTypes(constructorArgs));
 		}
 		public virtual IEnumerable<object> GetInstances(Type baseType, object[] constructorArgs, Type[] constructorArgTypes)
 		{
 			Log($"Creating instances for plugins with type '{baseType?.FullName}'", LogLevel.DEBUG);
 
-			return GetInstances(GetTypes(baseType), constructorArgs, constructorArgTypes);
+			return SharpLoader.GetInstances(this.GetTypes(baseType), constructorArgs, constructorArgTypes);
 		}
 
 	
@@ -101,7 +101,7 @@ namespace GenericSharpLoading
 
 		public static object GetInstance(Type type, params object[] constructorArgs)
 		{
-			return GetInstance(type, constructorArgs, ToTypes(constructorArgs));
+			return SharpLoader.GetInstance(type, constructorArgs, ToTypes(constructorArgs));
 		}
 		public static object GetInstance(Type type, object[] constructorArgs, Type[] constructorArgTypes)
 		{
