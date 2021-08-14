@@ -30,14 +30,20 @@ namespace GenericSharpLoading
 		}
 		public virtual void LoadAssembly(Assembly assembly)
 		{
-			string name = assembly.FullName;
-
-			Log($"Loading internal assembly {assembly?.FullName}", LogLevel.DEBUG);
-
-			if(this.LoadedAssembliesDic.ContainsKey(name))
+			if(assembly == null)
 				return;
 
+			var name = assembly.FullName;
+			Log($"Loading internal assembly {name}", LogLevel.DEBUG);
+
+			if(this.LoadedAssembliesDic.ContainsKey(name))
+			{
+				Log($"Loading internal assembly {name} already in pool", LogLevel.DEBUG);
+				return;
+			}
+
 			this.LoadedAssembliesDic.Add(name, assembly);
+			Log($"Internal assembly {name} loaded", LogLevel.DEBUG);
 		}
 		public virtual void LoadAssembly(string assemblyPath)
 		{
